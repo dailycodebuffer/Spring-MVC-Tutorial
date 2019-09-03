@@ -15,6 +15,7 @@ public class EmployeeController {
     @PostMapping(value = "/employee")
     public Employee createEmployee(@RequestBody Employee employee)
     {
+
         return  employeeRepository.save(employee);
     }
 
@@ -22,6 +23,21 @@ public class EmployeeController {
     @GetMapping(value = "/employee/{id}")
     public Employee getEmployeeById(@PathVariable Long id)
     {
+
         return  employeeRepository.findById(id).get();
     }
+
+    @PutMapping(value = "/employee")
+    public Employee updateEmployee(@RequestBody Employee employee)
+    {
+        return  employeeRepository.existsById(employee.getId()) ? employeeRepository.save(employee) : null;
+    }
+
+    @DeleteMapping(value = "/employee/{id}")
+    public void deleteEmployee(@PathVariable Long id)
+    {
+         employeeRepository.deleteById(id);
+    }
+
+
 }
